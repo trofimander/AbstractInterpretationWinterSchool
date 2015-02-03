@@ -1,0 +1,29 @@
+Name:			abstract-interpretation
+Version:                0.0.0
+Author:                 Dmitry Trofimov <trofimov.dmitry@gmail.com>
+Cabal-Version:          >= 1.10
+Build-Type:             Simple
+
+Library
+  Default-Language:     Haskell2010
+  HS-Source-Dirs:       src
+  GHC-Options:          -Wall -fwarn-incomplete-uni-patterns -fwarn-tabs
+  Exposed-Modules:      Day_01
+  Build-Depends:        base >= 4 && < 5
+                      , hspec, containers
+
+Test-Suite test-Day_01
+  Default-Language:     Haskell2010
+  type:                 exitcode-stdio-1.0
+  build-depends:        base >= 4 && < 5,
+                        hspec, containers
+  ghc-Options:          -Wall -fwarn-incomplete-uni-patterns -fwarn-tabs
+  hs-source-dirs:       src, test
+  main-is:              Day_01/Test/Main.hs
+
+
+
+
+Source-Repository head
+  Type:                 git
+--  Location:
