@@ -1,0 +1,13 @@
+name:           Abstract-Interpretation-Winter-School
+version:        0.1
+author:         Dmitry Trofimov
+cabal-version:  >= 1.10
+build-type:     Simple
+
+
+executable           par3cm
+  default-language:  Haskell2010
+  main-is:           CounterMatch/Main.hs
+  hs-source-dirs:    src
+  build-depends:     base
+                     ,parsec, containers
