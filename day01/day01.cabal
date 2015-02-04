@@ -1,4 +1,4 @@
-Name:			abstract-interpretation
+Name:                   abstract-interpretation
 Version:                0.0.0
 Author:                 Dmitry Trofimov <trofimov.dmitry@gmail.com>
 Cabal-Version:          >= 1.10
@@ -21,9 +21,3 @@ Test-Suite test-Day_01
   hs-source-dirs:       src, test
   main-is:              Day_01/Test/Main.hs
 
-
-
-
-Source-Repository head
-  Type:                 git
---  Location:
