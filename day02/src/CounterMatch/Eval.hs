@@ -14,9 +14,9 @@ step p s@(State x y z pc) =
             INC X -> State (x+1) y z (pc+1)
             INC Y -> State x (y+1) z (pc+1)
             INC Z -> State x y (z+1) (pc+1)
-            DEC X -> State (x-1) y z (pc+1)
-            DEC Y -> State x (y-1) z (pc+1)
-            DEC Z -> State x y (z-1) (pc+1)
+            DEC X -> if x>0 then State (x-1) y z (pc+1) else State x y z pc
+            DEC Y -> if y>0 then State x (y-1) z (pc+1) else State x y z pc
+            DEC Z -> if z>0 then State x y (z-1) (pc+1) else State x y z pc
             ZERO X pc' pc'' -> State x y z (if x == 0 then pc' else pc'')
             ZERO Y pc' pc'' -> State x y z (if y == 0 then pc' else pc'')
             ZERO Z pc' pc'' -> State x y z (if z == 0 then pc' else pc'')
