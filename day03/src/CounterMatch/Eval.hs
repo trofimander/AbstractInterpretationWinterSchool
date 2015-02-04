@@ -17,9 +17,6 @@ instance Show ParityState where
     show (ParityState x y z) = "x:" ++ show x ++ ", y:" ++ show y ++ ", z:" ++ show z
 
 
-rec_fmap f (ParityState x y z) = ParityState (f x) (f y) (f z)
-
-
 type State = Map Int ParityState
 
 showMap:: Map Int ParityState -> String
@@ -50,7 +47,7 @@ transform p i m = case (p !! (i-1)) of
                      ZERO v pc pc' -> unionState
                              (Map.singleton pc (apply v is_zero ps))
                              (Map.singleton pc'(apply v not_zero ps))
-                     _ -> Map.singleton i bottom_par
+                     _ -> Map.fromList []
 
                   where ps = findWithDefault bottom_par i m
                         ParityState x y z = ps
@@ -60,16 +57,16 @@ transform p i m = case (p !! (i-1)) of
 
 
 bottom_map:: Program->Map Int ParityState
-bottom_map p = List.foldl (\r e -> Map.union r (Map.singleton e (bottom_hat e))) (Map.fromList []) [1..(length p)]
+bottom_map p = List.foldl (\r e -> unionState r (Map.singleton e (bottom_hat e))) (Map.fromList []) [1..(length p)]
 
 init_map:: Program->Map Int ParityState->Map Int ParityState
 init_map p m = Map.insert 1 (ParityState TOP EVEN EVEN) m
 
 update_map:: Program->Map Int ParityState->Map Int ParityState
-update_map p m = List.foldl (\r e -> unionState r (transform p e r)) m [1..length p]
+update_map p m = List.foldl (\r e -> unionState r (transform p e m)) (init_map p (bottom_map p)) [1..length p]
 
 step:: Program->Map Int ParityState->Map Int ParityState
-step p m = update_map p (init_map p m)
+step p m = update_map p m
 
 kleene_iterate::  (State->State)->Int->State->Maybe State->State
 kleene_iterate _ 0 state _ = state
